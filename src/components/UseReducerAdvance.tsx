@@ -35,13 +35,13 @@ export default function UseReducerAdvance() {
         case "CHANGE_INPUT":
             return {...state, todo:{...state.todo,name:action.payload}}
         case "ADD_TODO":    
-            if (active) {
-                const id = state.todos.findIndex((todo: Todo) => todo.id === getId);
-                if (id !== -1) {
-                    const editedTodos = [...state.todos];
-                    editedTodos[id] = { ...editedTodos[id], name: state.todo.name };
-                    return { ...state, todos: editedTodos, todo: { ...initial.todo }, active: false };
-                }
+            let id = state.todos.findIndex((todo: Todo) => todo.id === getId);
+            if (id !== -1) {
+                setActive(false)
+                const editedTodos = [...state.todos];
+                setGetId(0)
+                editedTodos[id] = { ...editedTodos[id], name: state.todo.name };
+                return { ...state, todos: editedTodos, todo: { ...initial.todo }};
             }        
             return {...state, todos:[...state.todos,{...action.payload,id:Math.floor(Math.random()*93939292019291929+new Date().getMilliseconds())}],
             todo:{...initial.todo}
